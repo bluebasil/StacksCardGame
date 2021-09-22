@@ -11,13 +11,16 @@ reset_colors = "\033[0;0m"
 #
 class new_card:
 	name = ""
+	short_name = ""
 	suit = -1
 	value = -1
+	vissible = False
 
 	def __init__(self, suit, value):
 		self.suit = suit
 		self.value = value
 		self.name = value_names[value] + " of " + suits[suit]
+		self.short_name = value_names[value]
 
 
 def make_deck():
@@ -54,10 +57,10 @@ def print_deck(deck):
 		print_card(card)
 
 def output_deck(deck):
-	print("[")
+	print("[", end = '')
 	for i, card in enumerate(deck):
 		print(f"({card.suit},{card.value})", end = '')
-		if i != len(deck):
+		if i != len(deck) - 1:
 			print(",", end = "")
 	print("]")
 

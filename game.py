@@ -46,7 +46,7 @@ def start():
 
 def print_board(board):
 	print("**************************")
-	validate(board)
+	#validate(board)
 	row = ""
 	for suit, head in board.heads.items():
 		if len(head) > 0:
@@ -57,7 +57,7 @@ def print_board(board):
 	for stack_num, stack in enumerate(board.stacks):
 		row = ""
 		for card in stack:
-			row += " {:>10} ".format(dealer.colors[card.suit] + str(card.value))
+			row += " {:>12} ".format(dealer.colors[card.suit] + str(card.short_name))
 		print(dealer.reset_colors + "{:>4}".format(str(stack_num)) + ":  " + row)
 
 	print(dealer.reset_colors)
@@ -162,6 +162,12 @@ def shift(board):
 			if stack_num + 1 == len(board.stacks):
 				board.stacks.append([])
 			board.stacks[stack_num + 1].insert(0,stack.pop())
+
+		for spot, card in enumerate(stack):
+			if spot == 3:
+				card.visible = True
+			else:
+				card.visible = False
 
 	# even
 	board.stacks = [stack for stack in board.stacks if len(stack) != 0]
